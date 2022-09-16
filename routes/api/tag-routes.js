@@ -37,9 +37,7 @@ router.post('/', async (req, res) => {
   // create a new tag
 
   try{
-    const createTag = await Tag.create({
-      tag_name: req.body.tag_name
-    })
+    const createTag = await Tag.create(req.body)
     res.status(200).json(createTag);
 
   } catch (err) { 
@@ -54,7 +52,7 @@ router.put('/:id', async (req, res) => {
       where:{id:req.params.id}
     })
     if(!tag[0]){
-      res.status(404).json({message:'Error updating category'})
+      res.status(404).json({message:'Error updating tag'})
       return
     }
     res.status(200).json(tag)
@@ -70,7 +68,7 @@ router.delete('/:id', async (req, res) => {
       where: {id: req.params.id},
     })
     if(!tag){
-      res.status(404).json({message:"Could not find category to delete"})
+      res.status(404).json({message:"Could not find tag to delete"})
       return
     } 
     res.status(200).json(tag)
